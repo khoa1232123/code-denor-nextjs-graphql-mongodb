@@ -1,0 +1,21 @@
+fragment dataInfo on DataMutationResponse {
+  code
+  success
+  message
+
+  user {
+    ...userInfo
+  }
+
+  post {
+    ...postInfo
+  }
+
+  posts {
+    ...postInfo
+  }
+
+  errors {
+    ...fieldError
+  }
+}

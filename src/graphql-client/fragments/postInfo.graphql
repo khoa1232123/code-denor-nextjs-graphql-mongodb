@@ -1,0 +1,16 @@
+fragment postInfo on Post {
+  id
+  title
+  slug
+  summary
+  published
+  content
+  categories {
+    ...catInfo
+  }
+  user {
+    ...userInfo
+  }
+  createdAt
+  updatedAt
+}

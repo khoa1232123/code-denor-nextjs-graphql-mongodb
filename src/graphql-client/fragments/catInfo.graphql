@@ -1,0 +1,12 @@
+fragment catInfo on Category {
+  id
+  title
+  slug
+  content
+  posts {
+    id
+    title
+  }
+  createdAt
+  updatedAt
+}

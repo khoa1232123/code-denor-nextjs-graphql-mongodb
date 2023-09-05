@@ -1,0 +1,11 @@
+query Posts($getPostsInput: GetPostsInput) {
+  getPosts(getPostsInput: $getPostsInput) {
+    ...dataInfo
+  }
+}
+
+query Post($id: String!) {
+  getPost(id: $id) {
+    ...dataInfo
+  }
+}

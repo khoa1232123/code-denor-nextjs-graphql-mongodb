@@ -1,0 +1,26 @@
+mutation Register($registerInput: RegisterInput!) {
+  register(registerInput: $registerInput) {
+    ...dataInfo
+  }
+}
+
+mutation Login($loginInput: LoginInput!) {
+  login(loginInput: $loginInput) {
+    ...dataInfo
+  }
+}
+mutation Logout {
+  logout
+}
+
+mutation ForgotPassword($forgotPasswordInput: ForgotPasswordInput!) {
+  forgotPassword(forgotPasswordInput: $forgotPasswordInput) {
+    ...dataInfo
+  }
+}
+
+mutation ChangePassword($changePasswordInput: ChangePasswordInput!) {
+  changePassword(changePasswordInput: $changePasswordInput) {
+    ...dataInfo
+  }
+}
