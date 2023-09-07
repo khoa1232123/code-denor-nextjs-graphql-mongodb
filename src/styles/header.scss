@@ -1,0 +1,40 @@
+.header {
+  border-bottom: 1px solid #ddd;
+}
+
+.header-top {
+  padding: 10px 0;
+}
+
+.menu-top-left {
+  display: flex;
+
+  li {
+    padding: 0 10px;
+    position: relative;
+    color: #7e7e7e;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 200ms;
+    &:hover {
+      color: #000;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%);
+      display: block;
+      width: 1px;
+      height: 15px;
+      background-color: #ddd;
+    }
+    &:last-child {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

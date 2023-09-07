@@ -1,6 +1,7 @@
 import {
   FormControl,
   FormLabel,
+  InputProps,
   TextField,
   TextareaAutosize,
 } from "@mui/material";
@@ -9,11 +10,12 @@ import React from "react";
 
 type Props = {
   name: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   type?: React.HTMLInputTypeAttribute;
   className?: string;
   textarea?: boolean;
+  InputProps?: InputProps;
 };
 
 const InputField = ({ className, textarea, ...props }: Props) => {

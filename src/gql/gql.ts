@@ -14,14 +14,17 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "fragment catInfo on Category {\n  id\n  title\n  slug\n  content\n  posts {\n    id\n    title\n  }\n  createdAt\n  updatedAt\n}": types.CatInfoFragmentDoc,
-    "fragment dataInfo on DataMutationResponse {\n  code\n  success\n  message\n  user {\n    ...userInfo\n  }\n  post {\n    ...postInfo\n  }\n  posts {\n    ...postInfo\n  }\n  errors {\n    ...fieldError\n  }\n}": types.DataInfoFragmentDoc,
+    "fragment dataInfo on DataMutationResponse {\n  code\n  success\n  message\n  count\n  user {\n    ...userInfo\n  }\n  post {\n    ...postInfo\n  }\n  posts {\n    ...postInfo\n  }\n  product {\n    ...productInfo\n  }\n  products {\n    ...productInfo\n  }\n  errors {\n    ...fieldError\n  }\n}": types.DataInfoFragmentDoc,
     "fragment fieldError on FieldError {\n  field\n  message\n}": types.FieldErrorFragmentDoc,
     "fragment postInfo on Post {\n  id\n  title\n  slug\n  summary\n  published\n  content\n  categories {\n    ...catInfo\n  }\n  user {\n    ...userInfo\n  }\n  createdAt\n  updatedAt\n}": types.PostInfoFragmentDoc,
+    "fragment productInfo on Product {\n  id\n  title\n  slug\n  type\n  published\n  content\n  price\n  discount\n  quantity\n  userId\n  variants {\n    attributeId\n    attribute {\n      id\n      title\n      content\n      values\n    }\n    values\n  }\n  user {\n    ...userInfo\n  }\n  createdAt\n  updatedAt\n}": types.ProductInfoFragmentDoc,
     "fragment userInfo on User {\n  id\n  username\n  email\n}": types.UserInfoFragmentDoc,
     "mutation CreatePost($createPostInput: CreatePostInput!) {\n  createPost(createPostInput: $createPostInput) {\n    ...dataInfo\n  }\n}\n\nmutation UpdatePost($updatePostInput: UpdatePostInput!) {\n  updatePost(updatePostInput: $updatePostInput) {\n    ...dataInfo\n  }\n}\n\nmutation DeletePost($id: String!) {\n  deletePost(id: $id) {\n    ...dataInfo\n  }\n}": types.CreatePostDocument,
+    "mutation CreateProduct($createProductInput: CreateProductInput!) {\n  createProduct(createProductInput: $createProductInput) {\n    ...dataInfo\n  }\n}\n\nmutation UpdateProduct($updateProductInput: UpdateProductInput!) {\n  updateProduct(updateProductInput: $updateProductInput) {\n    ...dataInfo\n  }\n}\n\nmutation DeleteProduct($id: String!) {\n  deleteProduct(id: $id) {\n    ...dataInfo\n  }\n}": types.CreateProductDocument,
     "mutation Register($registerInput: RegisterInput!) {\n  register(registerInput: $registerInput) {\n    ...dataInfo\n  }\n}\n\nmutation Login($loginInput: LoginInput!) {\n  login(loginInput: $loginInput) {\n    ...dataInfo\n  }\n}\n\nmutation Logout {\n  logout\n}\n\nmutation ForgotPassword($forgotPasswordInput: ForgotPasswordInput!) {\n  forgotPassword(forgotPasswordInput: $forgotPasswordInput) {\n    ...dataInfo\n  }\n}\n\nmutation ChangePassword($changePasswordInput: ChangePasswordInput!) {\n  changePassword(changePasswordInput: $changePasswordInput) {\n    ...dataInfo\n  }\n}": types.RegisterDocument,
     "query Me {\n  me {\n    ...dataInfo\n  }\n}": types.MeDocument,
     "query Posts($getPostsInput: GetPostsInput) {\n  getPosts(getPostsInput: $getPostsInput) {\n    ...dataInfo\n  }\n}\n\nquery Post($id: String!) {\n  getPost(id: $id) {\n    ...dataInfo\n  }\n}": types.PostsDocument,
+    "query Products($getProductsInput: GetProductsInput) {\n  getProducts(getProductsInput: $getProductsInput) {\n    ...dataInfo\n  }\n}\n\nquery Product($id: String!) {\n  getProduct(id: $id) {\n    ...dataInfo\n  }\n}\n\nquery ProductBySlug($slug: String!) {\n  getProductBySlug(slug: $slug) {\n    ...dataInfo\n  }\n}": types.ProductsDocument,
 };
 
 /**
@@ -45,7 +48,7 @@ export function graphql(source: "fragment catInfo on Category {\n  id\n  title\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment dataInfo on DataMutationResponse {\n  code\n  success\n  message\n  user {\n    ...userInfo\n  }\n  post {\n    ...postInfo\n  }\n  posts {\n    ...postInfo\n  }\n  errors {\n    ...fieldError\n  }\n}"): (typeof documents)["fragment dataInfo on DataMutationResponse {\n  code\n  success\n  message\n  user {\n    ...userInfo\n  }\n  post {\n    ...postInfo\n  }\n  posts {\n    ...postInfo\n  }\n  errors {\n    ...fieldError\n  }\n}"];
+export function graphql(source: "fragment dataInfo on DataMutationResponse {\n  code\n  success\n  message\n  count\n  user {\n    ...userInfo\n  }\n  post {\n    ...postInfo\n  }\n  posts {\n    ...postInfo\n  }\n  product {\n    ...productInfo\n  }\n  products {\n    ...productInfo\n  }\n  errors {\n    ...fieldError\n  }\n}"): (typeof documents)["fragment dataInfo on DataMutationResponse {\n  code\n  success\n  message\n  count\n  user {\n    ...userInfo\n  }\n  post {\n    ...postInfo\n  }\n  posts {\n    ...postInfo\n  }\n  product {\n    ...productInfo\n  }\n  products {\n    ...productInfo\n  }\n  errors {\n    ...fieldError\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -57,11 +60,19 @@ export function graphql(source: "fragment postInfo on Post {\n  id\n  title\n  s
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "fragment productInfo on Product {\n  id\n  title\n  slug\n  type\n  published\n  content\n  price\n  discount\n  quantity\n  userId\n  variants {\n    attributeId\n    attribute {\n      id\n      title\n      content\n      values\n    }\n    values\n  }\n  user {\n    ...userInfo\n  }\n  createdAt\n  updatedAt\n}"): (typeof documents)["fragment productInfo on Product {\n  id\n  title\n  slug\n  type\n  published\n  content\n  price\n  discount\n  quantity\n  userId\n  variants {\n    attributeId\n    attribute {\n      id\n      title\n      content\n      values\n    }\n    values\n  }\n  user {\n    ...userInfo\n  }\n  createdAt\n  updatedAt\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "fragment userInfo on User {\n  id\n  username\n  email\n}"): (typeof documents)["fragment userInfo on User {\n  id\n  username\n  email\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation CreatePost($createPostInput: CreatePostInput!) {\n  createPost(createPostInput: $createPostInput) {\n    ...dataInfo\n  }\n}\n\nmutation UpdatePost($updatePostInput: UpdatePostInput!) {\n  updatePost(updatePostInput: $updatePostInput) {\n    ...dataInfo\n  }\n}\n\nmutation DeletePost($id: String!) {\n  deletePost(id: $id) {\n    ...dataInfo\n  }\n}"): (typeof documents)["mutation CreatePost($createPostInput: CreatePostInput!) {\n  createPost(createPostInput: $createPostInput) {\n    ...dataInfo\n  }\n}\n\nmutation UpdatePost($updatePostInput: UpdatePostInput!) {\n  updatePost(updatePostInput: $updatePostInput) {\n    ...dataInfo\n  }\n}\n\nmutation DeletePost($id: String!) {\n  deletePost(id: $id) {\n    ...dataInfo\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation CreateProduct($createProductInput: CreateProductInput!) {\n  createProduct(createProductInput: $createProductInput) {\n    ...dataInfo\n  }\n}\n\nmutation UpdateProduct($updateProductInput: UpdateProductInput!) {\n  updateProduct(updateProductInput: $updateProductInput) {\n    ...dataInfo\n  }\n}\n\nmutation DeleteProduct($id: String!) {\n  deleteProduct(id: $id) {\n    ...dataInfo\n  }\n}"): (typeof documents)["mutation CreateProduct($createProductInput: CreateProductInput!) {\n  createProduct(createProductInput: $createProductInput) {\n    ...dataInfo\n  }\n}\n\nmutation UpdateProduct($updateProductInput: UpdateProductInput!) {\n  updateProduct(updateProductInput: $updateProductInput) {\n    ...dataInfo\n  }\n}\n\nmutation DeleteProduct($id: String!) {\n  deleteProduct(id: $id) {\n    ...dataInfo\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -74,6 +85,10 @@ export function graphql(source: "query Me {\n  me {\n    ...dataInfo\n  }\n}"): 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query Posts($getPostsInput: GetPostsInput) {\n  getPosts(getPostsInput: $getPostsInput) {\n    ...dataInfo\n  }\n}\n\nquery Post($id: String!) {\n  getPost(id: $id) {\n    ...dataInfo\n  }\n}"): (typeof documents)["query Posts($getPostsInput: GetPostsInput) {\n  getPosts(getPostsInput: $getPostsInput) {\n    ...dataInfo\n  }\n}\n\nquery Post($id: String!) {\n  getPost(id: $id) {\n    ...dataInfo\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query Products($getProductsInput: GetProductsInput) {\n  getProducts(getProductsInput: $getProductsInput) {\n    ...dataInfo\n  }\n}\n\nquery Product($id: String!) {\n  getProduct(id: $id) {\n    ...dataInfo\n  }\n}\n\nquery ProductBySlug($slug: String!) {\n  getProductBySlug(slug: $slug) {\n    ...dataInfo\n  }\n}"): (typeof documents)["query Products($getProductsInput: GetProductsInput) {\n  getProducts(getProductsInput: $getProductsInput) {\n    ...dataInfo\n  }\n}\n\nquery Product($id: String!) {\n  getProduct(id: $id) {\n    ...dataInfo\n  }\n}\n\nquery ProductBySlug($slug: String!) {\n  getProductBySlug(slug: $slug) {\n    ...dataInfo\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

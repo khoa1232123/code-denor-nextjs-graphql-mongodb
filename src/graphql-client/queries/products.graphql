@@ -1,0 +1,17 @@
+query Products($getProductsInput: GetProductsInput) {
+  getProducts(getProductsInput: $getProductsInput) {
+    ...dataInfo
+  }
+}
+
+query Product($id: String!) {
+  getProduct(id: $id) {
+    ...dataInfo
+  }
+}
+
+query ProductBySlug($slug: String!) {
+  getProductBySlug(slug: $slug) {
+    ...dataInfo
+  }
+}

@@ -1,3 +1,4 @@
+import { Layout } from "@/components";
 import { useApollo } from "@/libs/apolloClient";
 import "@/styles/globals.scss";
 import { ApolloProvider } from "@apollo/client";
@@ -7,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps);
   return (
     <ApolloProvider client={apolloClient}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ApolloProvider>
   );
 }

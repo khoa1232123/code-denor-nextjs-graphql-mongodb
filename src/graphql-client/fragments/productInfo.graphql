@@ -1,0 +1,27 @@
+fragment productInfo on Product {
+  id
+  title
+  slug
+  type
+  published
+  content
+  price
+  discount
+  quantity
+  userId
+  variants {
+    attributeId
+    attribute {
+      id
+      title
+      content
+      values
+    }
+    values
+  }
+  user {
+    ...userInfo
+  }
+  createdAt
+  updatedAt
+}

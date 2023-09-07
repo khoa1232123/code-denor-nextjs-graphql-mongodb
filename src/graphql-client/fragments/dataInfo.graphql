@@ -2,6 +2,7 @@ fragment dataInfo on DataMutationResponse {
   code
   success
   message
+  count
 
   user {
     ...userInfo
@@ -13,6 +14,14 @@ fragment dataInfo on DataMutationResponse {
 
   posts {
     ...postInfo
+  }
+
+  product {
+    ...productInfo
+  }
+
+  products {
+    ...productInfo
   }
 
   errors {

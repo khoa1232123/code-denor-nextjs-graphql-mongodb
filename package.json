@@ -14,6 +14,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.7",
     "@mui/material": "^5.14.7",
     "@types/node": "20.5.7",
     "@types/react": "18.2.21",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/client-preset": "4.1.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@types/lodash": "^4.14.197"
   }
 }
