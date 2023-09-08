@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import LayoutUser from "./LayoutUser";
+import LayoutAdmin from "./LayoutAdmin";
 
 type Props = {
   children: ReactNode;
@@ -7,9 +8,9 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <LayoutUser>
+    <LayoutAdmin>
       <main>{children}</main>
-    </LayoutUser>
+    </LayoutAdmin>
   );
 };
 

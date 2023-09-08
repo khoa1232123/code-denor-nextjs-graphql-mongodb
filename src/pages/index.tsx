@@ -1,10 +1,5 @@
-import { Layout, ProductCard } from "@/components";
 import HomeComponents from "@/components/HomeComponents";
-import {
-  useProductBySlugQuery,
-  useProductQuery,
-  useProductsQuery,
-} from "@/gql/graphql-hooks";
+import { useProductsQuery } from "@/gql/graphql-hooks";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 
@@ -19,8 +14,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home page</title>
+        <title>Home page 2</title>
       </Head>
+
       <HomeComponents />
     </>
   );
