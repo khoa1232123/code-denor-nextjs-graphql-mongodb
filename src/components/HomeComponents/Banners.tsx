@@ -1,4 +1,4 @@
-import { bannerData } from "@/data";
+import { bannerData } from "@/data/userData";
 import React from "react";
 
 type Props = {};

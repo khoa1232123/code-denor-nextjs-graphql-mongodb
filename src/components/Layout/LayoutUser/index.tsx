@@ -8,7 +8,7 @@ type Props = {
 
 const LayoutUser = ({ children }: Props) => {
   return (
-    <div>
+    <div className="layout-user">
       <Header />
       {children}
       <Footer />
