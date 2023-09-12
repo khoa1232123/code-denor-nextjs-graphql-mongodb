@@ -17,8 +17,16 @@ INCLUDE STYLES AND COMPONENTS
   @import "layout/spacing", "layout/layout", "layout/layout-dark",
     "layout/responsive";
 
+  @import "custom";
+
   .flex-center {
-    display: flex;
+    display: flex !important;
     align-items: center;
+    justify-content: center;
+  }
+  .flex-end {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
   }
 }

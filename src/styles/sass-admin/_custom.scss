@@ -1,0 +1,75 @@
+* {
+  --border-color: rgba(222, 226, 230, 0.7);
+}
+
+.input-field {
+  border: 1px solid var(--border-color);
+  display: block;
+  width: 100%;
+  height: 42px;
+  border-radius: 8px;
+  padding: 0;
+
+  > * {
+    width: 100%;
+  }
+  input {
+    height: 40px;
+  }
+
+  select {
+    padding: 0 10px;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+  }
+
+  &.textarea {
+    height: auto;
+  }
+
+  .MuiAutocomplete-inputRoot {
+    padding-left: 5px;
+    &::before,
+    &::after {
+      display: none !important;
+    }
+  }
+
+  .MuiChip-root {
+    background: #cff4fc;
+  }
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+.nav-item__content {
+  border: 1px solid var(--border-color);
+  border-top: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 16px;
+  padding-bottom: 0;
+  background-color: #f8f9fa;
+}
+
+.product-data {
+  &__select-attributes {
+    .input-field {
+      background-color: white;
+    }
+    &__item {
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      border-radius: 8px;
+      background-color: white;
+    }
+  }
+}
+
+.items-center {
+  align-items: center;
+}

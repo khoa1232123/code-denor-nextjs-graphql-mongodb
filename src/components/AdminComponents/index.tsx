@@ -1,3 +1,8 @@
 import ContentHeader from "./ContentHeader";
+import ProductForm from "./Products/ProductForm";
 
-export { ContentHeader };
+// return (
+//     <ProductForm
+// )
+
+export { ContentHeader, ProductForm };

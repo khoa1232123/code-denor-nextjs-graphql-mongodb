@@ -84,25 +84,22 @@ const ProductsPage = (props: Props) => {
                       </div>
                     </th>
                     <th className="align-middle" scope="col">
-                      Order ID
+                      Slug
                     </th>
                     <th className="align-middle" scope="col">
-                      Billing Name
+                      Title
                     </th>
                     <th className="align-middle" scope="col">
-                      Date
+                      Update
                     </th>
-                    <th className="align-middle" scope="col">
-                      Total
+                    <th className="align-middle text-center" scope="col">
+                      Price
                     </th>
-                    <th className="align-middle" scope="col">
-                      Payment Status
+                    <th className="align-middle text-center" scope="col">
+                      Quantity
                     </th>
-                    <th className="align-middle" scope="col">
-                      Payment Method
-                    </th>
-                    <th className="align-middle" scope="col">
-                      View Details
+                    <th className="align-middle text-center" scope="col">
+                      Actions
                     </th>
                   </tr>
                 </thead>
@@ -128,26 +125,27 @@ const ProductsPage = (props: Props) => {
                         </td>
                         <td>
                           <a href="#" className="fw-bold">
-                            #SK2540
+                            #{item.slug}
                           </a>
                         </td>
                         <td>{item.title}</td>
                         <td>{item.updatedAt}</td>
-                        <td>${item.price}</td>
-                        <td>
-                          <span className="badge badge-pill badge-soft-success">
-                            Paid
-                          </span>
-                        </td>
-                        <td className="">
-                          <div className="flex-center">
-                            <i className="material-icons md-payment font-xxl text-muted mr-5"></i>{" "}
-                            Mastercard
-                          </div>
-                        </td>
-                        <td>
-                          <Link href="#" className="btn btn-xs">
-                            View details
+                        <td className="text-center">${item.price}</td>
+                        <td className="text-center">{item.quantity}</td>
+                        <td className="text-center flex-center">
+                          <Link
+                            href={`/admin/products/${item.id}`}
+                            className="btn btn-xs bg-warning me-2 align-middle flex-center"
+                          >
+                            <i className="icon material-icons md-edit me-1"></i>
+                            Edit
+                          </Link>
+                          <Link
+                            href="#"
+                            className="btn btn-xs bg-danger align-middle flex-center"
+                          >
+                            <i className="icon material-icons md-delete me-1"></i>
+                            Del
                           </Link>
                         </td>
                       </tr>

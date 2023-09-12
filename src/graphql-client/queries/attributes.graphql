@@ -1,0 +1,11 @@
+query Attributes($getAttributesInput: GetAttributesInput) {
+  getAttributes(getAttributesInput: $getAttributesInput) {
+    ...dataInfo
+  }
+}
+
+query Attribute($id: String!) {
+  getAttribute(id: $id) {
+    ...dataInfo
+  }
+}

@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormLabel,
-  InputProps,
-  TextField,
-  TextareaAutosize,
-} from "@mui/material";
+import { FormControl, InputProps, TextField } from "@mui/material";
 import { useField } from "formik";
 import React from "react";
 
@@ -16,14 +10,25 @@ type Props = {
   className?: string;
   textarea?: boolean;
   InputProps?: InputProps;
+  size?: "small" | "medium";
 };
 
-const InputField = ({ className, textarea, ...props }: Props) => {
+const InputField = ({ className, textarea, size, ...props }: Props) => {
   const [field, { error }] = useField(props);
   return (
     <FormControl className={className}>
       {textarea ? (
-        <TextareaAutosize {...field} id={field.name} {...props} />
+        <TextField
+          helperText={error}
+          rows={4}
+          multiline
+          size="small"
+          className="w-full"
+          error={Boolean(error)}
+          {...field}
+          id={field.name}
+          {...props}
+        />
       ) : (
         <TextField
           helperText={error}

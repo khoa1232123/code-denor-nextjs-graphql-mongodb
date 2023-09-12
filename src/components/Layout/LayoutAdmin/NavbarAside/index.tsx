@@ -26,7 +26,7 @@ const NavbarAside = (props: Props) => {
       <nav>
         <ul className="menu-aside">
           {navbarData.map((item, index) => (
-            <MenuItem item={item} key={index} />
+            <MenuItem item={item} key={item.title} />
           ))}
         </ul>
       </nav>
@@ -63,8 +63,8 @@ const MenuItem = ({ item }: MenuItemProps) => {
       </a>
       {item?.subMenu && item?.subMenu.length > 0 && (
         <div className={`submenu ${subMenuItemActive && "active"}`}>
-          {item.subMenu.map((it) => (
-            <Link href={it.link}>
+          {item.subMenu.map((it, index) => (
+            <Link href={it.link} key={index}>
               <i className="icon material-icons md-shopping_bag"></i>
               {it.title}
             </Link>

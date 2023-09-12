@@ -1,0 +1,8 @@
+fragment attributeInfo on Attribute {
+  id
+  title
+  content
+  values
+  createdAt
+  updatedAt
+}

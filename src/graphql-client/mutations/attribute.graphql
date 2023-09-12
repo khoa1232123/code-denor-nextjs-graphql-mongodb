@@ -1,0 +1,17 @@
+mutation CreateAttribute($createAttributeInput: CreateAttributeInput!) {
+  createAttribute(createAttributeInput: $createAttributeInput) {
+    ...dataInfo
+  }
+}
+
+mutation UpdateAttribute($updateAttributeInput: UpdateAttributeInput!) {
+  updateAttribute(updateAttributeInput: $updateAttributeInput) {
+    ...dataInfo
+  }
+}
+
+mutation DeleteAttribute($id: String!) {
+  deleteAttribute(id: $id) {
+    ...dataInfo
+  }
+}

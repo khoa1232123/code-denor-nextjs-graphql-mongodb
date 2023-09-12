@@ -1,4 +1,4 @@
-import InputField from "./InputField";
+import InputField from "./common/InputField";
 import Layout from "./Layout";
 import ProductCard from "./ProductCard";
 

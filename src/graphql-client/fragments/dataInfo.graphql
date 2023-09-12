@@ -16,6 +16,14 @@ fragment dataInfo on DataMutationResponse {
     ...postInfo
   }
 
+  attribute {
+    ...attributeInfo
+  }
+
+  attributes {
+    ...attributeInfo
+  }
+
   product {
     ...productInfo
   }
