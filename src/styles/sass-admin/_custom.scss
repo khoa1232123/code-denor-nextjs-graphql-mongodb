@@ -73,3 +73,20 @@
 .items-center {
   align-items: center;
 }
+
+.accordion-button {
+  height: 52px;
+  padding-right: 10px !important;
+  display: flex;
+  justify-content: space-between;
+
+  &::after {
+    display: none;
+  }
+}
+
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}

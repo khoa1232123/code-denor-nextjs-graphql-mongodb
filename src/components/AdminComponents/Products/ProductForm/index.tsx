@@ -1,8 +1,15 @@
 import { InputField } from "@/components";
 import SelectField from "@/components/common/SelectField";
-import { CreateProductInput, UpdateProductInput } from "@/gql/graphql";
+import {
+  CreateProductInput,
+  ProductVariant,
+  UpdateProductInput,
+  VariantOption,
+} from "@/gql/graphql";
 import { Form, Formik } from "formik";
 import ProductData from "./ProductData";
+import { useState } from "react";
+import { Button } from "@mui/material";
 
 type Props = {};
 
@@ -16,11 +23,17 @@ const ProductForm = (props: Props) => {
     published: true,
     quantity: 0,
     title: "",
+    type: "variant",
     variantOptions: [],
     variants: [],
   };
 
-  const handleLoginSubmit = async () => {};
+  const [variantOptions, setVariantOptions] = useState<VariantOption[]>([]);
+  const [variants, setVariants] = useState<ProductVariant[]>([]);
+
+  const handleLoginSubmit = async () => {
+    console.log({ variants, variantOptions });
+  };
 
   return (
     <section className="content">
@@ -99,9 +112,29 @@ const ProductForm = (props: Props) => {
                 </div>
               </div>
 
-              <ProductData />
+              <ProductData
+                setVariants={setVariants}
+                setVariantOptions={setVariantOptions}
+              />
             </div>
             <div className="col-lg-4">
+              <div className="card mb-4">
+                <div className="card-header">
+                  <h4 className="m-0">Public</h4>
+                </div>
+                <div className="card-body">
+                  Published:{" "}
+                  <input type="checkbox" className="form-check-input" />
+                </div>
+                <div className="card-footer text-end">
+                  <Button
+                    type="submit"
+                    className="btn btn-md rounded font-sm hover-up btn-public"
+                  >
+                    Save
+                  </Button>
+                </div>
+              </div>
               <div className="card mb-4">
                 <div className="card-header">
                   <h4 className="m-0">Media</h4>
