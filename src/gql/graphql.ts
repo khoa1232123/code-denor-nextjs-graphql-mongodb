@@ -559,6 +559,7 @@ export type UpdateProductInput = {
   published?: Scalars['Boolean']['input'];
   quantity?: Scalars['Float']['input'];
   title?: Scalars['String']['input'];
+  type?: Scalars['String']['input'];
   variantOptions?: InputMaybe<Array<VariantOptionInput>>;
   variants?: InputMaybe<Array<ProductVariantInput>>;
 };

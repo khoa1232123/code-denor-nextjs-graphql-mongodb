@@ -99,6 +99,9 @@ const ProductsPage = (props: Props) => {
                       Quantity
                     </th>
                     <th className="align-middle text-center" scope="col">
+                      Published
+                    </th>
+                    <th className="align-middle text-center" scope="col">
                       Actions
                     </th>
                   </tr>
@@ -132,6 +135,9 @@ const ProductsPage = (props: Props) => {
                         <td>{item.updatedAt}</td>
                         <td className="text-center">${item.price}</td>
                         <td className="text-center">{item.quantity}</td>
+                        <td className="text-center">
+                          {item.published ? "true" : "false"}
+                        </td>
                         <td className="text-center flex-center">
                           <Link
                             href={`/admin/products/${item.id}`}

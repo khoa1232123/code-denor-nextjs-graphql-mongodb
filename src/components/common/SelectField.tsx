@@ -1,6 +1,5 @@
-import { FormControl, InputProps, TextField } from "@mui/material";
-import { useField } from "formik";
-import React from "react";
+import { FormControl, InputProps } from "@mui/material";
+import React, { ChangeEventHandler } from "react";
 
 type OptionValue = {
   title: string;
@@ -17,15 +16,26 @@ type Props = {
   textarea?: boolean;
   InputProps?: InputProps;
   size?: "small" | "medium";
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
 };
 
-const SelectField = ({ className, options, size, ...props }: Props) => {
-  const [field, { error }] = useField(props);
+const SelectField = ({
+  className,
+  options,
+  size,
+  name,
+  value,
+  onChange,
+  ...props
+}: Props) => {
   return (
     <FormControl className={className}>
-      <select id={field.name} {...field}>
+      <select id={name} name={name} value={value} onChange={onChange}>
         {options.map((it) => (
-          <option value={it.value}>{it.title}</option>
+          <option value={it.value} key={it.value}>
+            {it.title}
+          </option>
         ))}
       </select>
     </FormControl>

@@ -11,10 +11,19 @@ type Props = {
   textarea?: boolean;
   InputProps?: InputProps;
   size?: "small" | "medium";
+  error?: string;
+  value?: string | number;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
-const InputField = ({ className, textarea, size, ...props }: Props) => {
-  const [field, { error }] = useField(props);
+const InputField = ({
+  className,
+  textarea,
+  size,
+  error,
+  name,
+  ...props
+}: Props) => {
   return (
     <FormControl className={className}>
       {textarea ? (
@@ -25,8 +34,8 @@ const InputField = ({ className, textarea, size, ...props }: Props) => {
           size="small"
           className="w-full"
           error={Boolean(error)}
-          {...field}
-          id={field.name}
+          name={name}
+          id={name}
           {...props}
         />
       ) : (
@@ -35,8 +44,8 @@ const InputField = ({ className, textarea, size, ...props }: Props) => {
           size="small"
           className="w-full"
           error={Boolean(error)}
-          {...field}
-          id={field.name}
+          name={name}
+          id={name}
           {...props}
         />
       )}

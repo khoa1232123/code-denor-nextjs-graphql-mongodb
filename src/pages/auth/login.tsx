@@ -2,53 +2,49 @@ import { InputField } from "@/components";
 import { LoginInput } from "@/gql/graphql";
 import { useLoginMutation } from "@/gql/graphql-hooks";
 import { AccountCircle, VisibilityOff } from "@mui/icons-material";
-import { Button, InputAdornment } from "@mui/material";
+import { Button, InputAdornment, TextField } from "@mui/material";
 import { Form, Formik, FormikHelpers } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { ChangeEvent, useState } from "react";
 
 type Props = {};
 
 const LoginPage = (props: Props) => {
   const router = useRouter();
   const { loginUser, error } = useLoginMutation();
+  const [data, setData] = useState<LoginInput>({
+    password: "",
+    usernameOrEmail: "",
+  });
   const initialValues: LoginInput = {
     usernameOrEmail: "",
     password: "",
   };
 
-  const handleLoginSubmit = async (
-    values: LoginInput,
-    { setErrors }: FormikHelpers<LoginInput>
+  const handleOnChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setData({ ...data, [name]: value });
+  };
+
+  const handleLoginSubmit = async () => {
     console.log("submit");
 
     const res = await loginUser({
       variables: {
-        loginInput: values,
+        loginInput: data,
       },
-      //   update(cache, { data }) {
-      //     if (data?.login.success) {
-      //       cache.writeQuery<MeQuery>({
-      //         query: MeDocument,
-      //         data: { me: data.login },
-      //       });
-      //     }
-      //   },
     });
+    console.log(res.data, data);
+
     if (res.data?.login.errors) {
       console.log("error");
-
-      //   setErrors(mapFieldErrors(res.data.login.errors));
     } else if (res.data?.login.user) {
       console.log("success");
-      //   toast({
-      //     title: "Welcome ",
-      //     description: res.data.login.user.username,
-      //     status: "success",
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
       router.push("/");
     }
   };
@@ -59,11 +55,12 @@ const LoginPage = (props: Props) => {
         <Formik initialValues={initialValues} onSubmit={handleLoginSubmit}>
           <Form className="login-page__form">
             <h1 className="login-page__form__title">Sign In</h1>
-            <InputField
+            <TextField
               placeholder="Username"
               name="usernameOrEmail"
               type="text"
               className="login-page__form__input"
+              onChange={handleOnChange}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -72,11 +69,12 @@ const LoginPage = (props: Props) => {
                 ),
               }}
             />
-            <InputField
+            <TextField
               placeholder="Password"
               name="password"
               type="password"
               className="login-page__form__input"
+              onChange={handleOnChange}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

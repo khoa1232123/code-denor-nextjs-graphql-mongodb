@@ -13,25 +13,20 @@ import {
   useEffect,
   useState,
 } from "react";
-import { v4 as uuid } from "uuid";
-
-type VariantOptionAndKey = VariantOption & {
-  keyItem?: string;
-};
 
 type Props = {
   variantPDs: ProductVariant[];
-  variantOptionPDs: VariantOptionAndKey[];
-  setVariantOptionPDs: Dispatch<SetStateAction<VariantOptionAndKey[]>>;
+  variantOptionPDs: VariantOption[];
+  setVariantOptionPDs: Dispatch<SetStateAction<VariantOption[]>>;
 };
 
 type ProductDataVariantOptionItemProps = {
   tabActive: number;
   stt: number;
-  variantOption: VariantOptionAndKey;
+  variantOption: VariantOption;
   variantPDs: ProductVariant[];
   setTabActive: Dispatch<SetStateAction<number>>;
-  setVariantOptionPDs: Dispatch<SetStateAction<VariantOptionAndKey[]>>;
+  setVariantOptionPDs: Dispatch<SetStateAction<VariantOption[]>>;
   onClose?: (e: any) => void;
 };
 
@@ -55,7 +50,6 @@ const ProductDataVariantOptions = ({
           SKU: "",
           title: "",
           variants: [],
-          keyItem: uuid(),
         },
       ]);
     }
@@ -78,7 +72,7 @@ const ProductDataVariantOptions = ({
         {variantPDs.length > 0 &&
           variantOptionPDs.map((item, index) => (
             <ProductDataVariantOptionItem
-              key={item.keyItem || index}
+              key={index}
               stt={index}
               tabActive={tabActive}
               variantPDs={variantPDs}
@@ -124,14 +118,16 @@ const ProductDataVariantOptionItem = ({
     const value = e.target.value;
     const type = e.target.type;
     let convertValue: string | number = "";
+
     if (type === "number") {
       convertValue = Number(value);
     } else {
       convertValue = value;
     }
+    console.log({ type, value, convertValue, name });
     setDataOptionItem({ ...dataOptionItem, [name]: convertValue });
     setVariantOptionPDs((oldValue) => {
-      oldValue[stt] = { ...dataOptionItem, [name]: value };
+      oldValue[stt] = { ...dataOptionItem, [name]: convertValue };
       return oldValue;
     });
   };
@@ -263,7 +259,7 @@ const ProductDataVariantOptionItem = ({
               </div>
             </div>
             <div className="col-lg-4">
-              <label className="form-label">Quantity</label>
+              <label className="form-label">Quantity 2</label>
               <TextField
                 name="quantity"
                 type="number"
