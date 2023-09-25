@@ -1,7 +1,13 @@
-import { ProductVariant } from "@/gql/graphql";
+import { ProductVariant, Attribute, AttributeInput } from "@/gql/graphql";
 import { useAttributesQuery } from "@/gql/graphql-hooks";
-import { Autocomplete, TextField } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
+import { Autocomplete, Chip, TextField } from "@mui/material";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
+type AttributeVariant = {
+  id: string;
+  title: string;
+  values?: string[];
+};
 
 type ProductDataVariantProps = {
   variantPDs: ProductVariant[];
@@ -14,6 +20,50 @@ const ProductDataVariants = ({
 }: ProductDataVariantProps) => {
   const { attributes } = useAttributesQuery();
 
+  const [dataAttributes, setDataAttributes] = useState<AttributeVariant[]>([]);
+
+  const [valueAutoComplete, setValueAutoComplete] = useState<
+    AttributeVariant[]
+  >([]);
+
+  console.log({ dataAttributes, valueAutoComplete });
+
+  useEffect(() => {
+    let arr: AttributeVariant[] = [];
+    attributes?.forEach((item) => {
+      const { id, values, title } = item;
+      arr.push({
+        id,
+        title: title,
+        values: values || [],
+      });
+    });
+    setDataAttributes(arr);
+  }, [attributes]);
+
+  useEffect(() => {
+    let arr: AttributeVariant[] = [];
+    variantPDs.forEach((item) => {
+      const { attributeId, values } = item;
+      const idx = attributes?.findIndex((it) => it.id === attributeId);
+      let title = "";
+
+      if ((idx || idx === 0) && idx >= 0 && attributes && attributes.length) {
+        title = attributes[idx].title;
+        console.log({ attribute: attributes?.[idx] });
+      }
+
+      arr.push({
+        id: attributeId,
+        title: title || "",
+        values: values || [],
+      });
+    });
+    console.log({ arr });
+
+    setValueAutoComplete([...arr]);
+  }, [variantPDs]);
+
   return (
     <>
       <div className="mb-4 product-data__select-attributes">
@@ -23,19 +73,24 @@ const ProductDataVariants = ({
             <Autocomplete
               multiple
               id="attributes"
-              options={attributes || []}
+              options={dataAttributes || []}
+              value={valueAutoComplete}
               onChange={(e, newValue) => {
                 const values: ProductVariant[] = [];
                 newValue.map((it) => {
                   const idx = variantPDs.findIndex(
                     (itx) => itx.attributeId === it.id
                   );
+
+                  console.log({ variantPDs });
+
                   let newVal: string[] = [];
                   if (idx >= 0) {
                     newVal = variantPDs[idx].values || [];
                   }
                   values.push({ attributeId: it.id, values: newVal });
                 });
+                setValueAutoComplete(newValue);
                 setVariantPDs(values);
               }}
               getOptionLabel={(option) => option.title}
@@ -60,7 +115,12 @@ const ProductDataVariants = ({
           const idx = attributes?.findIndex((it) => item.attributeId === it.id);
 
           if (idx >= 0) {
-            const attr = attributes?.[idx];
+            const { id, title, values } = attributes?.[idx];
+            const attr: AttributeVariant = {
+              id,
+              title,
+              values: values || [],
+            };
 
             return (
               <div
@@ -72,6 +132,7 @@ const ProductDataVariants = ({
                   multiple
                   id="attributes"
                   options={attr.values || []}
+                  value={item.values || []}
                   getOptionLabel={(option) => option}
                   onChange={(e, newValue) => {
                     setVariantPDs((oldValue) => {

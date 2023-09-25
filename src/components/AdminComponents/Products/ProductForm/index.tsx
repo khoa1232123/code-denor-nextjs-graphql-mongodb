@@ -11,10 +11,13 @@ import ProductData from "./ProductData";
 import { ChangeEvent, FormEventHandler, useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useUpdateProductMutation } from "@/gql/graphql-hooks";
+import { Variant } from "@mui/material/styles/createTypography";
 
 type Props = {
-  data: UpdateProductInput | CreateProductInput;
-  setData: React.Dispatch<React.SetStateAction<CreateProductInput>>;
+  data: CreateProductInput | UpdateProductInput;
+  setData: React.Dispatch<
+    React.SetStateAction<CreateProductInput | UpdateProductInput>
+  >;
   onSubmit?: FormEventHandler<HTMLFormElement>;
 };
 
@@ -29,6 +32,8 @@ const ProductForm = ({ data, setData, onSubmit }: Props) => {
   useEffect(() => {
     setData({ ...data, variants });
   }, [variants]);
+
+  console.log({ data }, "productform");
 
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -143,6 +148,8 @@ const ProductForm = ({ data, setData, onSubmit }: Props) => {
             </div>
 
             <ProductData
+              variantOptions={data.variantOptions as VariantOption[]}
+              variants={data.variants as ProductVariant[]}
               setVariants={setVariants}
               setVariantOptions={setVariantOptions}
             />

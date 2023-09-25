@@ -1,17 +1,21 @@
-import { InputField } from "@/components";
 import { ProductVariant, VariantOption } from "@/gql/graphql";
-import { useAttributesQuery } from "@/gql/graphql-hooks";
-import { Autocomplete, Button, TextField } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import ProductDataVariants from "./ProductDataVariants";
 import ProductDataVariantOptions from "./ProductDataVariantOptions";
+import ProductDataVariants from "./ProductDataVariants";
 
 type Props = {
+  variants: ProductVariant[];
+  variantOptions: VariantOption[];
   setVariants: Dispatch<SetStateAction<ProductVariant[]>>;
   setVariantOptions: Dispatch<SetStateAction<VariantOption[]>>;
 };
 
-const ProductData = ({ setVariantOptions, setVariants }: Props) => {
+const ProductData = ({
+  variantOptions,
+  variants,
+  setVariantOptions,
+  setVariants,
+}: Props) => {
   const [tabActive, setTabActive] = useState("variants");
   const [variantPDs, setVariantPDs] = useState<ProductVariant[]>([]);
   const [variantOptionPDs, setVariantOptionPDs] = useState<VariantOption[]>([]);
@@ -25,6 +29,8 @@ const ProductData = ({ setVariantOptions, setVariants }: Props) => {
       value: "variantOptions",
     },
   ];
+
+  console.log({ variants }, "ProductData");
 
   useEffect(() => {
     setVariantOptions(variantOptionPDs);
@@ -67,7 +73,7 @@ const ProductData = ({ setVariantOptions, setVariants }: Props) => {
                 className={`mb-4 ${tabActive !== "variants" ? "d-none" : ""}`}
               >
                 <ProductDataVariants
-                  variantPDs={variantPDs}
+                  variantPDs={variantPDs.length ? variantPDs : variants}
                   setVariantPDs={setVariantPDs}
                 />
               </div>
@@ -78,8 +84,8 @@ const ProductData = ({ setVariantOptions, setVariants }: Props) => {
               >
                 <ProductDataVariantOptions
                   setVariantOptionPDs={setVariantOptionPDs}
-                  variantOptionPDs={variantOptionPDs}
-                  variantPDs={variantPDs}
+                  variantOptionPDs={variantOptionPDs || variantOptions}
+                  variantPDs={variantPDs || variants}
                 />
               </div>
             </div>

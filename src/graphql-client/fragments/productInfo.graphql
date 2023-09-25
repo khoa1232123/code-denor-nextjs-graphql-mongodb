@@ -19,6 +19,25 @@ fragment productInfo on Product {
     }
     values
   }
+  variantOptions {
+    variants {
+      attributeId
+      attribute {
+        id
+        title
+        content
+        values
+      }
+      value
+    }
+    title
+    SKU
+    image
+    price
+    discount
+    quantity
+    published
+  }
   user {
     ...userInfo
   }

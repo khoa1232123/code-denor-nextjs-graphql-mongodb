@@ -55,8 +55,6 @@ const ProductDataVariantOptions = ({
     }
   };
 
-  console.log({ variantOptionPDs });
-
   const handleClose = (value: number) => {
     variantOptionPDs.splice(value, 1);
     setVariantOptionPDs([...variantOptionPDs]);
