@@ -1,0 +1,17 @@
+mutation CreateProductCat($createProductCatInput: CreateProductCatInput!) {
+  createProductCat(createProductCatInput: $createProductCatInput) {
+    ...dataInfo
+  }
+}
+
+mutation UpdateProductCat($updateProductCatInput: UpdateProductCatInput!) {
+  updateProductCat(updateProductCatInput: $updateProductCatInput) {
+    ...dataInfo
+  }
+}
+
+mutation DeleteProductCat($id: String!) {
+  deleteProductCat(id: $id) {
+    ...dataInfo
+  }
+}

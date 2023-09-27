@@ -26,6 +26,11 @@ export const navbarData: navbarType[] = [
         title: "Categories",
         link: "/admin/products/categories",
       },
+      {
+        icon: "",
+        title: "Attributes",
+        link: "/admin/products/attributes",
+      },
     ],
   },
   {

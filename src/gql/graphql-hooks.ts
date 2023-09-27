@@ -12,12 +12,18 @@ import {
   CreateAttributeDocument,
   CreateAttributeMutation,
   CreateAttributeMutationVariables,
+  CreateProductCatDocument,
+  CreateProductCatMutation,
+  CreateProductCatMutationVariables,
   CreateProductDocument,
   CreateProductMutation,
   CreateProductMutationVariables,
   DeleteAttributeDocument,
   DeleteAttributeMutation,
   DeleteAttributeMutationVariables,
+  DeleteProductCatDocument,
+  DeleteProductCatMutation,
+  DeleteProductCatMutationVariables,
   DeleteProductDocument,
   DeleteProductMutation,
   DeleteProductMutationVariables,
@@ -36,6 +42,12 @@ import {
   ProductBySlugDocument,
   ProductBySlugQuery,
   ProductBySlugQueryVariables,
+  ProductCatDocument,
+  ProductCatQuery,
+  ProductCatQueryVariables,
+  ProductCatsDocument,
+  ProductCatsQuery,
+  ProductCatsQueryVariables,
   ProductDocument,
   ProductQuery,
   ProductQueryVariables,
@@ -48,6 +60,9 @@ import {
   UpdateAttributeDocument,
   UpdateAttributeMutation,
   UpdateAttributeMutationVariables,
+  UpdateProductCatDocument,
+  UpdateProductCatMutation,
+  UpdateProductCatMutationVariables,
   UpdateProductDocument,
   UpdateProductMutation,
   UpdateProductMutationVariables,
@@ -219,4 +234,58 @@ export const useAttributeQuery = (
   >(AttributeDocument, baseOptions);
 
   return { ...data?.getAttribute, loading, error };
+};
+
+// Mutation Product Cat
+export const useCreateProductCatMutation = () => {
+  const [createProductCat, { data, error, loading }] = useMutation<
+    CreateProductCatMutation,
+    CreateProductCatMutationVariables
+  >(CreateProductCatDocument);
+
+  return { createProductCat, data, error, loading };
+};
+
+export const useUpdateProductCatMutation = () => {
+  const [updateProductCat, { data, error, loading }] = useMutation<
+    UpdateProductCatMutation,
+    UpdateProductCatMutationVariables
+  >(UpdateProductCatDocument);
+
+  return { updateProductCat, data, error, loading };
+};
+
+export const useDeleteProductCatMutation = () => {
+  const [deleteProductCat, { data, error, loading }] = useMutation<
+    DeleteProductCatMutation,
+    DeleteProductCatMutationVariables
+  >(DeleteProductCatDocument);
+
+  return { deleteProductCat, data, error, loading };
+};
+
+// Query Product Cat
+export const useProductCatsQuery = (
+  baseOptions: QueryHookOptions<
+    ProductCatsQuery,
+    ProductCatsQueryVariables
+  > = {}
+) => {
+  const { data, loading, error } = useQuery<
+    ProductCatsQuery,
+    ProductCatsQueryVariables
+  >(ProductCatsDocument, baseOptions);
+
+  return { ...data?.getProductCats, loading, error };
+};
+
+export const useProductCatQuery = (
+  baseOptions: QueryHookOptions<ProductCatQuery, ProductCatQueryVariables>
+) => {
+  const { data, loading, error } = useQuery<
+    ProductCatQuery,
+    ProductCatQueryVariables
+  >(ProductCatDocument, baseOptions);
+
+  return { ...data?.getProductCat, loading, error };
 };

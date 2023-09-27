@@ -1,8 +1,17 @@
 import ContentHeader from "./ContentHeader";
+import ProductAttributes from "./Products/ProductAttributes";
+import ProductCats from "./Products/ProductCats";
+import ProductCatList from "./Products/ProductCats/ProductCatList";
 import ProductForm from "./Products/ProductForm";
 
 // return (
-//     <ProductForm
+//     <ProductAttributes
 // )
 
-export { ContentHeader, ProductForm };
+export {
+  ContentHeader,
+  ProductForm,
+  ProductCatList,
+  ProductCats,
+  ProductAttributes,
+};

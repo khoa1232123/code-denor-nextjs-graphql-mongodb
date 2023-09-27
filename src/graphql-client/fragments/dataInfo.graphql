@@ -32,6 +32,14 @@ fragment dataInfo on DataMutationResponse {
     ...productInfo
   }
 
+  productCat {
+    ...productCatInfo
+  }
+
+  productCats {
+    ...productCatInfo
+  }
+
   errors {
     ...fieldError
   }

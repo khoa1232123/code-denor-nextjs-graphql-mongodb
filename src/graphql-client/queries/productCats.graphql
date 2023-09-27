@@ -1,0 +1,11 @@
+query ProductCats($getProductCatsInput: GetProductCatsInput) {
+  getProductCats(getProductCatsInput: $getProductCatsInput) {
+    ...dataInfo
+  }
+}
+
+query ProductCat($id: String!) {
+  getProductCat(id: $id) {
+    ...dataInfo
+  }
+}

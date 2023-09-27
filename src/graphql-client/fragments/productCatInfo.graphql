@@ -1,0 +1,12 @@
+fragment productCatInfo on ProductCat {
+  id
+  slug
+  title
+  content
+  products {
+    id
+    title
+  }
+  createdAt
+  updatedAt
+}
