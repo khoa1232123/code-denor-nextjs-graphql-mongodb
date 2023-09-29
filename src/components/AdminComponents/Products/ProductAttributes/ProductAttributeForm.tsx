@@ -1,6 +1,6 @@
 import { InputField, InputTags } from "@/components";
 import {
-  AttributeDocument,
+  AttributesDocument,
   CreateAttributeInput,
   UpdateAttributeInput,
 } from "@/gql/graphql";
@@ -40,30 +40,32 @@ const ProductAttributeForm = ({ data, setData }: Props) => {
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
-    if (data.values?.length) {
-      setTags(data.values);
-    }
+    setTags(data.values || []);
   }, [data.values]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log({ data, tags });
+
     if ("id" in data && data.id !== "") {
       updateAttribute({
         variables: {
-          updateAttributeInput: data,
+          updateAttributeInput: { ...data, values: tags },
         },
-        refetchQueries: [AttributeDocument],
+        refetchQueries: [AttributesDocument],
       }).then(() => {
         setData({});
+        setTags([]);
       });
     } else {
       createAttribute({
         variables: {
-          createAttributeInput: data,
+          createAttributeInput: { ...data, values: tags },
         },
-        refetchQueries: [AttributeDocument],
+        refetchQueries: [AttributesDocument],
       }).then(() => {
         setData({});
+        setTags([]);
       });
     }
   };
@@ -99,7 +101,7 @@ const ProductAttributeForm = ({ data, setData }: Props) => {
           />
           <InputTags tags={tags} setTags={setTags} />
           <LoadingButton
-            //   loading={createLoading || updateLoading}
+            loading={createLoading || updateLoading}
             type="submit"
             className="btn btn-md rounded font-sm btn-full"
           >

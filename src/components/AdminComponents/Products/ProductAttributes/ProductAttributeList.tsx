@@ -1,5 +1,8 @@
 import { CreateProductCatInput, UpdateAttributeInput } from "@/gql/graphql";
-import { useAttributesQuery } from "@/gql/graphql-hooks";
+import {
+  useAttributesQuery,
+  useDeleteAttributeMutation,
+} from "@/gql/graphql-hooks";
 import Link from "next/link";
 import React, { Dispatch } from "react";
 
@@ -11,9 +14,27 @@ type Props = {
 
 const ProductAttributeList = ({ setData }: Props) => {
   const { attributes, loading, error, errors } = useAttributesQuery({});
+  const {
+    deleteAttribute,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteAttributeMutation();
 
   const handleEditAttribute = (item: UpdateAttributeInput) => {
-    setData(item);
+    setData({
+      id: item.id,
+      title: item.title,
+      content: item.content,
+      values: item.values || [],
+    });
+  };
+
+  const handleDeleteAttribute = (id: string) => {
+    deleteAttribute({
+      variables: {
+        id,
+      },
+    });
   };
 
   return (
@@ -81,13 +102,15 @@ const ProductAttributeList = ({ setData }: Props) => {
                             <i className="icon material-icons md-edit me-1"></i>
                             Edit
                           </div>
-                          <Link
-                            href="#"
-                            className="btn btn-xs bg-danger align-middle flex-center"
+                          <div
+                            className="btn btn-xs bg-warning me-2 align-middle flex-center"
+                            onClick={() => {
+                              handleDeleteAttribute(item.id);
+                            }}
                           >
                             <i className="icon material-icons md-delete me-1"></i>
                             Del
-                          </Link>
+                          </div>
                         </td>
                       </tr>
                     ))}
