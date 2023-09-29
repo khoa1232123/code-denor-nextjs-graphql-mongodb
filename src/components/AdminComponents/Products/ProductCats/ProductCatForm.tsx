@@ -31,6 +31,7 @@ const ProductCatForm = ({ data, setData }: Props) => {
     loading: updateLoading,
     error: updateError,
   } = useUpdateProductCatMutation();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if ("id" in data && data.id !== "") {

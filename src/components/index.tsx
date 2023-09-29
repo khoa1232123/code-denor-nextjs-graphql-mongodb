@@ -1,5 +1,10 @@
 import InputField from "./common/InputField";
+import InputTags from "./InputTags";
 import Layout from "./Layout";
 import ProductCard from "./ProductCard";
 
-export { InputField, ProductCard, Layout };
+// return (
+//     <InputTags
+// )
+
+export { InputField, ProductCard, Layout, InputTags };

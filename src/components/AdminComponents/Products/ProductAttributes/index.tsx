@@ -8,18 +8,16 @@ type Props = {};
 const ProductAttributes = (props: Props) => {
   const [data, setData] = useState<
     CreateProductCatInput | UpdateProductCatInput
-  >({
-    content: "",
-    title: "",
-  });
+  >({});
+
   return (
     <section className="content">
       <div className="row">
         <div className="col-4">
-          <ProductAttributeForm />
+          <ProductAttributeForm data={data} setData={setData} />
         </div>
         <div className="col-8">
-          <ProductAttributeList />
+          <ProductAttributeList setData={setData} />
         </div>
       </div>
     </section>
