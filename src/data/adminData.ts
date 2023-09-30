@@ -46,17 +46,17 @@ export const navbarData: navbarType[] = [
       {
         icon: "",
         title: "List",
-        link: "/",
+        link: "/admin/posts",
       },
       {
         icon: "",
         title: "Create",
-        link: "/",
+        link: "/admin/posts/create",
       },
       {
         icon: "",
         title: "Categories",
-        link: "/",
+        link: "/admin/posts/categories",
       },
     ],
   },

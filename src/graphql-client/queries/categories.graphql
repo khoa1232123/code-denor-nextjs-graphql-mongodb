@@ -1,0 +1,11 @@
+query Categories($getCategoriesInput: GetCategoriesInput) {
+  getCategories(getCategoriesInput: $getCategoriesInput) {
+    ...dataInfo
+  }
+}
+
+query Category($id: String!) {
+  getCategory(id: $id) {
+    ...dataInfo
+  }
+}

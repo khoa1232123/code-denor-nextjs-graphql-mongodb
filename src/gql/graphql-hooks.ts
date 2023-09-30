@@ -6,12 +6,21 @@ import {
   AttributesDocument,
   AttributesQuery,
   AttributesQueryVariables,
+  CategoriesDocument,
+  CategoriesQuery,
+  CategoriesQueryVariables,
+  CategoryDocument,
+  CategoryQuery,
+  CategoryQueryVariables,
   ChangePasswordDocument,
   ChangePasswordMutation,
   ChangePasswordMutationVariables,
   CreateAttributeDocument,
   CreateAttributeMutation,
   CreateAttributeMutationVariables,
+  CreateCategoryDocument,
+  CreateCategoryMutation,
+  CreateCategoryMutationVariables,
   CreateProductCatDocument,
   CreateProductCatMutation,
   CreateProductCatMutationVariables,
@@ -21,6 +30,9 @@ import {
   DeleteAttributeDocument,
   DeleteAttributeMutation,
   DeleteAttributeMutationVariables,
+  DeleteCategoryDocument,
+  DeleteCategoryMutation,
+  DeleteCategoryMutationVariables,
   DeleteProductCatDocument,
   DeleteProductCatMutation,
   DeleteProductCatMutationVariables,
@@ -60,6 +72,9 @@ import {
   UpdateAttributeDocument,
   UpdateAttributeMutation,
   UpdateAttributeMutationVariables,
+  UpdateCategoryDocument,
+  UpdateCategoryMutation,
+  UpdateCategoryMutationVariables,
   UpdateProductCatDocument,
   UpdateProductCatMutation,
   UpdateProductCatMutationVariables,
@@ -288,4 +303,55 @@ export const useProductCatQuery = (
   >(ProductCatDocument, baseOptions);
 
   return { ...data?.getProductCat, loading, error };
+};
+
+// Mutation Post Category
+export const useCreateCategoryMutation = () => {
+  const [createCategory, { data, error, loading }] = useMutation<
+    CreateCategoryMutation,
+    CreateCategoryMutationVariables
+  >(CreateCategoryDocument);
+
+  return { createCategory, data, error, loading };
+};
+
+export const useUpdateCategoryMutation = () => {
+  const [updateCategory, { data, error, loading }] = useMutation<
+    UpdateCategoryMutation,
+    UpdateCategoryMutationVariables
+  >(UpdateCategoryDocument);
+
+  return { updateCategory, data, error, loading };
+};
+
+export const useDeleteCategoryMutation = () => {
+  const [deleteCategory, { data, error, loading }] = useMutation<
+    DeleteCategoryMutation,
+    DeleteCategoryMutationVariables
+  >(DeleteCategoryDocument);
+
+  return { deleteCategory, data, error, loading };
+};
+
+// Query Post Category
+export const useCategoriesQuery = (
+  baseOptions: QueryHookOptions<CategoriesQuery, CategoriesQueryVariables> = {}
+) => {
+  const { data, loading, error } = useQuery<
+    CategoriesQuery,
+    CategoriesQueryVariables
+  >(CategoriesDocument, baseOptions);
+
+  return { ...data?.getCategories, loading, error };
+};
+
+export const useCategoryQuery = (
+  baseOptions: QueryHookOptions<CategoryQuery, CategoryQueryVariables>
+) => {
+  const { data, loading, error } = useQuery<
+    CategoryQuery,
+    CategoryQueryVariables
+  >(CategoryDocument, baseOptions);
+
+  return { ...data?.getCategory, loading, error };
 };
