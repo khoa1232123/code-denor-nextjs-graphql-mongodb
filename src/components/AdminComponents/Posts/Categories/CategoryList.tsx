@@ -1,8 +1,17 @@
-import { CreateCategoryInput, UpdateCategoryInput } from "@/gql/graphql";
-import { useCategoriesQuery } from "@/gql/graphql-hooks";
-import Link from "next/link";
+import {
+  CategoriesDocument,
+  CreateCategoryInput,
+  UpdateCategoryInput,
+} from "@/gql/graphql";
+import {
+  useCategoriesQuery,
+  useDeleteCategoryMutation,
+} from "@/gql/graphql-hooks";
+import { LoadingButton } from "@mui/lab";
+import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { Dispatch, useState } from "react";
+import PaginationAdmin from "../../PaginationAdmin";
 
 type Props = {
   setData: Dispatch<
@@ -14,7 +23,7 @@ const CategoryList = ({ setData }: Props) => {
   const router = useRouter();
   const [page, setPage] = useState<number>(1);
 
-  const { categories, loading, error, errors } = useCategoriesQuery({
+  const { categories, metaInfo, loading, error, errors } = useCategoriesQuery({
     variables: {
       getCategoriesInput: {
         page,
@@ -22,11 +31,28 @@ const CategoryList = ({ setData }: Props) => {
     },
   });
 
-  const handleEditProductCat = (item: UpdateCategoryInput) => {
+  console.log({ categories });
+
+  const {
+    deleteCategory,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteCategoryMutation();
+
+  const handleEditCategory = (item: UpdateCategoryInput) => {
     setData({
       id: item.id,
       title: item.title,
       content: item.content,
+    });
+  };
+
+  const handleDeleteCategory = (id: string) => {
+    deleteCategory({
+      variables: {
+        id,
+      },
+      refetchQueries: [CategoriesDocument],
     });
   };
 
@@ -96,23 +122,34 @@ const CategoryList = ({ setData }: Props) => {
                         <td className="text-center flex-center">
                           <div
                             className="btn btn-xs bg-warning me-2 align-middle flex-center"
-                            onClick={() => handleEditProductCat(item)}
+                            onClick={() => handleEditCategory(item)}
                           >
                             <i className="icon material-icons md-edit me-1"></i>
                             Edit
                           </div>
-                          <Link
-                            href="#"
+                          <LoadingButton
                             className="btn btn-xs bg-danger align-middle flex-center"
+                            onClick={() => handleDeleteCategory(item.id)}
                           >
                             <i className="icon material-icons md-delete me-1"></i>
                             Del
-                          </Link>
+                          </LoadingButton>
                         </td>
                       </tr>
                     ))}
                 </tbody>
               </table>
+              {loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+
+              <PaginationAdmin
+                metaInfo={metaInfo}
+                page={page}
+                setPage={setPage}
+              />
             </div>
           </div>
         </div>

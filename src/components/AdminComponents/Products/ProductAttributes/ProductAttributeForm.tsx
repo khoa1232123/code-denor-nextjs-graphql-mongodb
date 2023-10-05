@@ -99,7 +99,8 @@ const ProductAttributeForm = ({ data, setData }: Props) => {
             onChange={handleChange}
             value={data?.content || ""}
           />
-          <InputTags tags={tags} setTags={setTags} />
+          <FormLabel>Values</FormLabel>
+          <InputTags tags={tags} setTags={setTags} placeholder="Values" />
           <LoadingButton
             loading={createLoading || updateLoading}
             type="submit"

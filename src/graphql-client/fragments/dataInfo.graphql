@@ -3,6 +3,11 @@ fragment dataInfo on DataMutationResponse {
   success
   message
   count
+  metaInfo {
+    pageCurrent
+    count
+    pageTotal
+  }
 
   user {
     ...userInfo

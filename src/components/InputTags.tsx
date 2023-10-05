@@ -16,9 +16,14 @@ interface TagsProps {
 interface InputTagsProps {
   tags: string[];
   setTags: Dispatch<React.SetStateAction<string[]>>;
+  placeholder?: string;
 }
 
-const InputTags: React.FC<InputTagsProps> = ({ tags, setTags }) => {
+const InputTags: React.FC<InputTagsProps> = ({
+  tags,
+  setTags,
+  placeholder = "",
+}) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +62,7 @@ const InputTags: React.FC<InputTagsProps> = ({ tags, setTags }) => {
         size="small"
         className="input-field mb-2"
         margin="none"
-        placeholder={tags.length < 5 ? "Enter tags" : ""}
+        placeholder={placeholder}
         onKeyPress={handleInputKeyPress}
         onChange={handleInputChange}
         value={inputValue}

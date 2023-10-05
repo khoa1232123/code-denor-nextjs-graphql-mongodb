@@ -1,10 +1,17 @@
-import { CreateProductCatInput, UpdateAttributeInput } from "@/gql/graphql";
+import {
+  AttributeDocument,
+  AttributesDocument,
+  CreateProductCatInput,
+  UpdateAttributeInput,
+} from "@/gql/graphql";
 import {
   useAttributesQuery,
   useDeleteAttributeMutation,
 } from "@/gql/graphql-hooks";
-import Link from "next/link";
-import React, { Dispatch } from "react";
+import { CircularProgress } from "@mui/material";
+import React, { Dispatch, useState } from "react";
+import PaginationAdmin from "../../PaginationAdmin";
+import { LoadingButton } from "@mui/lab";
 
 type Props = {
   setData: Dispatch<
@@ -13,7 +20,14 @@ type Props = {
 };
 
 const ProductAttributeList = ({ setData }: Props) => {
-  const { attributes, loading, error, errors } = useAttributesQuery({});
+  const [page, setPage] = useState<number>(1);
+  const { attributes, metaInfo, loading, error, errors } = useAttributesQuery({
+    variables: {
+      getAttributesInput: {
+        page,
+      },
+    },
+  });
   const {
     deleteAttribute,
     loading: deleteLoading,
@@ -34,6 +48,7 @@ const ProductAttributeList = ({ setData }: Props) => {
       variables: {
         id,
       },
+      refetchQueries: [AttributesDocument],
     });
   };
 
@@ -102,20 +117,32 @@ const ProductAttributeList = ({ setData }: Props) => {
                             <i className="icon material-icons md-edit me-1"></i>
                             Edit
                           </div>
-                          <div
-                            className="btn btn-xs bg-warning me-2 align-middle flex-center"
+                          <LoadingButton
+                            loading={deleteLoading}
+                            className="btn btn-xs bg-danger me-2 align-middle flex-center"
                             onClick={() => {
                               handleDeleteAttribute(item.id);
                             }}
                           >
                             <i className="icon material-icons md-delete me-1"></i>
                             Del
-                          </div>
+                          </LoadingButton>
                         </td>
                       </tr>
                     ))}
                 </tbody>
               </table>
+              {loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+
+              <PaginationAdmin
+                metaInfo={metaInfo}
+                page={page}
+                setPage={setPage}
+              />
             </div>
           </div>
         </div>
