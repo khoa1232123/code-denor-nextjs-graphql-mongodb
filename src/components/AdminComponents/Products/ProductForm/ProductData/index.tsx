@@ -30,8 +30,6 @@ const ProductData = ({
     },
   ];
 
-  console.log({ variants }, "ProductData");
-
   useEffect(() => {
     setVariantOptions(variantOptionPDs);
   }, [variantOptionPDs]);
@@ -39,6 +37,8 @@ const ProductData = ({
   useEffect(() => {
     setVariants(variantPDs);
   }, [variantPDs]);
+
+  console.log({ variantPDs });
 
   return (
     <div className="card mb-4 product-data">
